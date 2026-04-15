@@ -1,0 +1,15 @@
+╔═.✾. ═════════════╗
+ 
+ Ficha de Personagem 
+ - Destiny RPG
+
+╚═════════════.✾. ═╝
+
+➤ Nome: Nome do Personagem
+➤ Idade: Idade do Personagem
+➤ Sexualidade: Sexualidade do Personagem
+➤ Gênero: Gênero do Personagem
+➤ Aparência: Aparência do Personagem
+➤ Poder; Poder do Personagem
+➤ Arma: Arma do Personagem (Sem armas se vazio)
+➤ Oucupação: Oucupação do Personagem
