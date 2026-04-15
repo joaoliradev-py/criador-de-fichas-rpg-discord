@@ -71,25 +71,12 @@ if (!process.env.DISCORD_TOKEN || process.env.DISCORD_TOKEN === 'COLOQUE_SEU_TOK
     process.exit(1);
 }
 
-// ============================================
-// HACK PARA O DEPLOY NO RENDER (E PLATAFORMAS NUVEM)
-// ============================================
-import http from 'http';
-const porta = process.env.PORT || 10000;
+// Loga o bot oficial no Discord
+console.log('⏳ Tentando conectar aos servidores do Discord...');
 
-http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Bot Destiny RPG Online e roteando rotas no Render!');
-}).listen(porta, () => {
-    console.log(`🌐 Mini-servidor web rodando na porta ${porta} para segurar a nuvem...`);
-    
-    // Loga o bot oficial no Discord DEPOIS do servidor estar online, 
-    // com escudo pra checar se a Internet do Render cortou a comunicação
-    console.log('⏳ Tentando conectar aos servidores do Discord...');
-    client.login(process.env.DISCORD_TOKEN)
-        .then(() => console.log('✅ Autorizado! Comunicação estabelecida no servidor gringo.'))
-        .catch(err => {
-            console.error('❌ ERRO FATAL DE CONEXÃO: O Render ou o Discord barraram o robô!');
-            console.error(err);
-        });
-});
+client.login(process.env.DISCORD_TOKEN)
+    .then(() => console.log('✅ Autorizado! Comunicação estabelecida no servidor do Discord.'))
+    .catch(err => {
+        console.error('❌ ERRO FATAL DE CONEXÃO: Ocorreu um problema no login!');
+        console.error(err);
+    });
