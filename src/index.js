@@ -71,14 +71,9 @@ if (!process.env.DISCORD_TOKEN || process.env.DISCORD_TOKEN === 'COLOQUE_SEU_TOK
     process.exit(1);
 }
 
-// Loga o bot oficial no Discord
-client.login(process.env.DISCORD_TOKEN);
-
 // ============================================
 // HACK PARA O DEPLOY NO RENDER (E PLATAFORMAS NUVEM)
 // ============================================
-// O Render.com (plano gratuito Web Service) derruba aplicações que não abrem uma "porta de internet" (HTTP).
-// A gente cria esse mini-servidor invisível só para "enganar" e dizer "Opa, estamos abertos!".
 import http from 'http';
 const porta = process.env.PORT || 10000;
 
@@ -87,4 +82,14 @@ http.createServer((req, res) => {
     res.end('Bot Destiny RPG Online e roteando rotas no Render!');
 }).listen(porta, () => {
     console.log(`🌐 Mini-servidor web rodando na porta ${porta} para segurar a nuvem...`);
+    
+    // Loga o bot oficial no Discord DEPOIS do servidor estar online, 
+    // com escudo pra checar se a Internet do Render cortou a comunicação
+    console.log('⏳ Tentando conectar aos servidores do Discord...');
+    client.login(process.env.DISCORD_TOKEN)
+        .then(() => console.log('✅ Autorizado! Comunicação estabelecida no servidor gringo.'))
+        .catch(err => {
+            console.error('❌ ERRO FATAL DE CONEXÃO: O Render ou o Discord barraram o robô!');
+            console.error(err);
+        });
 });
